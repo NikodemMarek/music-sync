@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  polaris:
+    image: ogarcia/polaris
+    container_name: polaris
+    ports:
+      - "5050:5050"
+    user: ":991"
+    volumes:
+      - /home/music/data:/music
+    restart: unless-stopped
