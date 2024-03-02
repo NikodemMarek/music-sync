@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Music Sync</string>
+    <string name="menu_item_home">Home</string>
+    <string name="menu_item_fetch">Fetch</string>
 </resources>

@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+      android:id="@+id/menu_item_home"
+      android:enabled="true"
+      android:icon="@drawable/home_rounded_48"
+      android:title="@string/menu_item_home"/>
+  <item
+      android:id="@+id/menu_item_fetch"
+      android:enabled="true"
+      android:icon="@drawable/cloud_download_rounded_48"
+      android:title="@string/menu_item_fetch"/>
+</menu>
