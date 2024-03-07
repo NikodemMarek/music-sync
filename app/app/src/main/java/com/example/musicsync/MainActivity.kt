@@ -6,9 +6,8 @@ import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.example.musicsync.databinding.ActivityMainBinding
-
-import com.example.musicsync.fragments.HomeFragment
 import com.example.musicsync.fragments.FetchFragment
+import com.example.musicsync.fragments.HomeFragment
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var binding: ActivityMainBinding

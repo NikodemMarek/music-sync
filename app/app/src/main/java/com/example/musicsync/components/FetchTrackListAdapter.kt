@@ -3,7 +3,6 @@ package com.example.musicsync.components
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-
 import com.example.musicsync.data.Track
 import com.example.musicsync.databinding.FetchListItemBinding
 

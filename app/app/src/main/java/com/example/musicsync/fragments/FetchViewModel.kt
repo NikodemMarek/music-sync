@@ -1,7 +1,7 @@
 package com.example.musicsync.fragments
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.musicsync.data.Track
 import kotlin.collections.ArrayList
 
