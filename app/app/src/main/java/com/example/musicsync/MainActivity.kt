@@ -1,14 +1,16 @@
 package com.example.musicsync
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
-import androidx.fragment.app.replace
 import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import com.example.musicsync.databinding.ActivityMainBinding
-import android.util.Log
 
-class MainActivity: AppCompatActivity(R.layout.activity_main) {
+import com.example.musicsync.fragments.HomeFragment
+import com.example.musicsync.fragments.FetchFragment
+
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +26,7 @@ class MainActivity: AppCompatActivity(R.layout.activity_main) {
         }
 
         binding.bottomNavigation.setOnItemSelectedListener { item ->
-            when(item.itemId) {
+            when (item.itemId) {
                 R.id.menu_item_home -> {
                     supportFragmentManager.commit {
                         replace<HomeFragment>(R.id.fragment_container_view)

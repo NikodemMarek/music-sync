@@ -1,4 +1,4 @@
-package com.example.musicsync
+package com.example.musicsync.fragments
 
 import androidx.lifecycle.ViewModel
 
