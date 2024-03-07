@@ -23,8 +23,8 @@ class FetchTrackListAdapter(private val data: List<Track>) : RecyclerView.Adapte
     ) {
         with(holder) {
             with(data[position]) {
-                binding.fetchListItemName.text = name
-                binding.fetchListItemUrl.text = url
+                binding.fetchListItemName.text = title
+                binding.fetchListItemUrl.text = path
             }
         }
     }
