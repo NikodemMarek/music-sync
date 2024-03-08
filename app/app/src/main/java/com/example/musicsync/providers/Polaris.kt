@@ -75,6 +75,8 @@ class Polaris : Provider, PasswordAuth {
         token = res.body()?.token
     }
 
+    override fun isAuthenticated(): Boolean = token != null
+
     @Throws
     override suspend fun getAllTracks(): List<Track> {
         if (token == null) {

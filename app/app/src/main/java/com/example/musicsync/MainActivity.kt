@@ -1,5 +1,6 @@
 package com.example.musicsync
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
@@ -8,6 +9,8 @@ import androidx.fragment.app.replace
 import com.example.musicsync.databinding.ActivityMainBinding
 import com.example.musicsync.fragments.FetchFragment
 import com.example.musicsync.fragments.HomeFragment
+import com.example.musicsync.providers.PasswordAuth
+import com.example.musicsync.providers.Polaris
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var binding: ActivityMainBinding
@@ -21,6 +24,16 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
                 add<HomeFragment>(R.id.fragment_container_view)
+            }
+        }
+
+        val provider = Polaris.getInstance()
+        when (provider) {
+            is PasswordAuth -> {
+                if (!provider.isAuthenticated()) {
+                    val intent = Intent(this, AuthActivity::class.java)
+                    startActivity(intent)
+                }
             }
         }
 

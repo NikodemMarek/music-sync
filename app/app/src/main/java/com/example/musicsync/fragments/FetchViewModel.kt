@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.musicsync.data.Track
-import com.example.musicsync.providers.PasswordAuth
 import com.example.musicsync.providers.Polaris
 import kotlinx.coroutines.launch
 import kotlin.collections.ArrayList
@@ -22,12 +21,6 @@ class FetchViewModel : ViewModel() {
 
         viewModelScope.launch {
             try {
-                when (provider) {
-                    is PasswordAuth -> {
-                        (provider as Polaris).auth("test", "test")
-                    }
-                }
-
                 val tracks = provider.getAllTracks()
                 observedItemList.value = ArrayList(tracks)
             } catch (e: Exception) {

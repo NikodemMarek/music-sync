@@ -13,4 +13,6 @@ interface PasswordAuth {
         username: String,
         password: String,
     )
+
+    fun isAuthenticated(): Boolean
 }
