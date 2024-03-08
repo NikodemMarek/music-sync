@@ -1,28 +1,42 @@
 package com.example.musicsync.fragments
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.musicsync.data.Track
+import com.example.musicsync.providers.PasswordAuth
+import com.example.musicsync.providers.Polaris
+import kotlinx.coroutines.launch
 import kotlin.collections.ArrayList
 
 class FetchViewModel : ViewModel() {
-    private val tracksList: ArrayList<Track> = ArrayList()
     private val observedItemList: MutableLiveData<ArrayList<Track>> = MutableLiveData()
 
     init {
-        tracksList.add(Track("Title 1", "url 1"))
-        tracksList.add(Track("Title 2", "url 2"))
-        tracksList.add(Track("Title 3", "url 3"))
+        getTracksList()
+    }
 
-        observedItemList.value = tracksList
+    fun getTracksList() {
+        val provider = Polaris.getInstance()
+
+        viewModelScope.launch {
+            try {
+                when (provider) {
+                    is PasswordAuth -> {
+                        (provider as Polaris).auth("test", "test")
+                    }
+                }
+
+                val tracks = provider.getAllTracks()
+                observedItemList.value = ArrayList(tracks)
+            } catch (e: Exception) {
+                Log.e("xxx", "Error fetching tracks", e)
+            }
+        }
     }
 
     fun getObservedItemList(): MutableLiveData<ArrayList<Track>> {
         return observedItemList
-    }
-
-    fun addTrack() {
-        tracksList.add(Track("added", "url"))
-        observedItemList.value = tracksList
     }
 }
