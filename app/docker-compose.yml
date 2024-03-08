@@ -12,7 +12,7 @@ services:
       - android-sdk-cache:/opt/android-sdk
       - ~/.dockercache/gradle:/root/.gradle
     # command: ["bash", "-c", "adb -H 127.0.0.1 -P 5037 devices"] # Lists devices connected to host
-    command: ["bash", "-c", "cd /project && ./gradlew installDebug && adb -H 127.0.0.1 -P 5037 -d shell am start -n com.example.musicsync/.MainActivity"] # Installs and launches the app
+    command: ["bash", "-c", "cd /project && ./gradlew installDebug && adb -H 127.0.0.1 -P 5037 shell am start -n com.example.musicsync/.MainActivity"] # Installs and launches the app
 
 volumes:
   jenv-cache:
