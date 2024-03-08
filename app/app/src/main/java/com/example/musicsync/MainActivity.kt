@@ -9,8 +9,8 @@ import androidx.fragment.app.replace
 import com.example.musicsync.databinding.ActivityMainBinding
 import com.example.musicsync.fragments.FetchFragment
 import com.example.musicsync.fragments.HomeFragment
-import com.example.musicsync.providers.PasswordAuth
-import com.example.musicsync.providers.Polaris
+import com.example.musicsync.providers.ProviderFactory
+import com.example.musicsync.providers.ProviderType
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var binding: ActivityMainBinding
@@ -27,14 +27,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             }
         }
 
-        val provider = Polaris.getInstance()
-        when (provider) {
-            is PasswordAuth -> {
-                if (!provider.isAuthenticated()) {
-                    val intent = Intent(this, AuthActivity::class.java)
-                    startActivity(intent)
-                }
-            }
+        val provider = ProviderFactory.getPolarisInstance()
+        if (!provider.isAuthenticated()) {
+            val intent = Intent(this, AuthActivity::class.java)
+            intent.putExtra("provider", ProviderType.POLARIS)
+
+            startActivity(intent)
         }
 
         binding.bottomNavigation.setOnItemSelectedListener { item ->

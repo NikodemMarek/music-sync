@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.musicsync.data.Track
-import com.example.musicsync.providers.Polaris
+import com.example.musicsync.providers.ProviderFactory
 import kotlinx.coroutines.launch
 import kotlin.collections.ArrayList
 
@@ -17,7 +17,7 @@ class FetchViewModel : ViewModel() {
     }
 
     fun getTracksList() {
-        val provider = Polaris.getInstance()
+        val provider = ProviderFactory.getDefaultInstance()
 
         viewModelScope.launch {
             try {
