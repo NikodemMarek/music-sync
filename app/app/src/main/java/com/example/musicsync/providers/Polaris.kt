@@ -36,9 +36,16 @@ interface PolarisAPI {
 
 class Polaris : Provider, PasswordAuth {
     private var api: PolarisAPI
-
-    // 7xYdTQlhIUK99rCzZ3eHwp4dOtrOYyfwkFPJSDx4EKZSyU68rzr5WjWjeqaCr5Jy9wNcQqMcNZO17xtAQM3E6JkvWNyqkvHxKbwBnZylwUWHpCwrB6ExelAk
     private var token: String? = null
+
+    companion object {
+        @Volatile private var instance: Polaris? = null
+
+        fun getInstance() =
+            instance ?: synchronized(this) {
+                instance ?: Polaris().also { instance = it }
+            }
+    }
 
     init {
         val retrofit =

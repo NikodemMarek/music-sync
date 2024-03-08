@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             }
         }
 
-        provider = Polaris()
+        provider = Polaris.getInstance()
 
         lifecycleScope.launch {
             try {
