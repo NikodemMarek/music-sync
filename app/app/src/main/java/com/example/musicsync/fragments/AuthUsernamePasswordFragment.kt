@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.musicsync.databinding.FragmentAuthUsernamePasswordBinding
+import com.example.musicsync.providers.ProviderFactory
 import com.example.musicsync.providers.ProviderType
 
 class AuthUsernamePasswordFragment : Fragment() {
@@ -40,7 +41,7 @@ class AuthUsernamePasswordFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.model = model
 
-        model.providerType = providerType!!
+        model.provider = ProviderFactory.getInstance(providerType!!)
         model.onFinish = { activity?.finish() }
 
         return binding.root

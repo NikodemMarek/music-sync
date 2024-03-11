@@ -2,6 +2,7 @@ package com.example.musicsync.providers
 
 import com.example.musicsync.data.Track
 import com.google.gson.annotations.SerializedName
+import kotlinx.coroutines.runBlocking
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -35,17 +36,23 @@ interface PolarisAPI {
 }
 
 class Polaris : Provider, PasswordAuth {
+    private var authCache: AuthCache
     private var api: PolarisAPI
     private var token: String? = null
 
     init {
         val retrofit =
             Retrofit.Builder()
-                .baseUrl("http://192.168.152.239:5050/api/")
+                .baseUrl("http://192.168.114.239:5050/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
         api = retrofit.create(PolarisAPI::class.java)
+
+        authCache = AuthCache()
+        runBlocking {
+            token = authCache.getFor(AuthCacheKeys.POLARIS_TOKEN)
+        }
     }
 
     @Throws
@@ -63,7 +70,11 @@ class Polaris : Provider, PasswordAuth {
             throw Exception("could not authenticate")
         }
 
-        token = res.body()?.token
+        val tkn = res.body()?.token
+        if (tkn != null) {
+            token = tkn
+            authCache.setFor(AuthCacheKeys.POLARIS_TOKEN, tkn)
+        }
     }
 
     override fun isAuthenticated(): Boolean = token != null

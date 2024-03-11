@@ -5,20 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.musicsync.data.Track
-import com.example.musicsync.providers.ProviderFactory
+import com.example.musicsync.providers.Provider
 import kotlinx.coroutines.launch
 import kotlin.collections.ArrayList
 
 class FetchViewModel : ViewModel() {
+    lateinit var provider: Provider
+
     private val observedItemList: MutableLiveData<ArrayList<Track>> = MutableLiveData()
 
-    init {
-        getTracksList()
-    }
-
     fun getTracksList() {
-        val provider = ProviderFactory.getDefaultInstance()
-
         viewModelScope.launch {
             try {
                 val tracks = provider.getAllTracks()
