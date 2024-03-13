@@ -5,6 +5,32 @@
             "label": "installDebug",
             "type": "shell",
             "command": "docker compose -f ./app/docker-compose.yml up"
+        },
+        {
+            "label": "polaris",
+            "type": "shell",
+            "command": "docker compose -f ./docker-compose.yml up -d"
+        },
+        {
+            "label": "postgres",
+            "type": "shell",
+            "command": "docker compose -f ./server/docker-compose.yml up -d"
+        },
+        {
+            "label": "server",
+            "type": "shell",
+            "command": "mvn clean package && mvn exec:java -Dexec.mainClass='com.example.server.ServerApplication'",
+            "options": {
+                "cwd": "./server"
+            }
+        },
+        {
+            "label": "test endpoints",
+            "type": "shell",
+            "command": "hurl *",
+            "options": {
+                "cwd": "./server/tests"
+            }
         }
     ]
 }
