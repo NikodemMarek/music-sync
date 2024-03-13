@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
     final UserEntity userEntity =
         new UserEntity(userRequestDTO.getUsername(), encoder.encode(userRequestDTO.getPassword()));
     this.repository.save(userEntity);
-    return new UserResponseDTO(userEntity.makeAuth());
+    return new UserResponseDTO(userEntity.getUsername());
   }
 
   @Override
