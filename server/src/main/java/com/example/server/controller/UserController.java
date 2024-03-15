@@ -1,5 +1,8 @@
-package com.example.server;
+package com.example.server.controller;
 
+import com.example.server.dto.UserRequestDTO;
+import com.example.server.dto.UserResponseDTO;
+import com.example.server.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

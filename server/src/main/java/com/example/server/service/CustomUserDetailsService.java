@@ -1,5 +1,7 @@
-package com.example.server;
+package com.example.server.service;
 
+import com.example.server.entity.UserEntity;
+import com.example.server.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

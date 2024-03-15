@@ -1,4 +1,4 @@
-package com.example.server;
+package com.example.server.exception;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,5 +1,9 @@
-package com.example.server;
+package com.example.server.service;
 
+import com.example.server.dto.UserRequestDTO;
+import com.example.server.dto.UserResponseDTO;
+import com.example.server.entity.UserEntity;
+import com.example.server.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

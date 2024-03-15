@@ -1,4 +1,4 @@
-package com.example.server;
+package com.example.server.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,10 +8,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class User {
+public class UserResponseDTO {
   private String username;
-  private String password;
 }
