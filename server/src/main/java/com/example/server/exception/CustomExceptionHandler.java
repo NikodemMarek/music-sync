@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class CustomExceptionHandler {
   @ExceptionHandler(DataIntegrityViolationException.class)
   public ResponseEntity<Object> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
-    String message = "Integrity violation: email exists";
+    String message = "Integrity violation: username exists";
     Map<String, String> errors = new HashMap<>();
     errors.put("error", message);
     return ResponseEntity.status(HttpStatus.CONFLICT).body(errors);
