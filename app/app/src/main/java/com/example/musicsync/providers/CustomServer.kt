@@ -1,7 +1,6 @@
 package com.example.musicsync.providers
 
 import com.example.musicsync.data.Track
-import com.google.gson.annotations.SerializedName
 import kotlinx.coroutines.runBlocking
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -11,47 +10,50 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 
-data class PolarisAuthRequest(
+data class CustomServerAuthRequest(
     val username: String,
     val password: String,
 )
 
-data class PolarisAuthResponse(
-    val username: String,
+data class CustomServerAuthResponse(
     val token: String,
-    @SerializedName("is_admin")
-    val isAdmin: Boolean,
 )
 
-interface PolarisAPI {
-    @GET("flatten")
+interface CustomServerAPI {
+    @GET("music")
     suspend fun getAllTracks(
         @Header("Authorization") authorization: String,
     ): Response<List<Track>>
 
-    @POST("auth")
+    @POST("music")
+    suspend fun addTrack(
+        @Header("Authorization") authorization: String,
+        @Body data: Track,
+    ): Response<String>
+
+    @POST("login")
     suspend fun auth(
-        @Body data: PolarisAuthRequest,
-    ): Response<PolarisAuthResponse>
+        @Body data: CustomServerAuthRequest,
+    ): Response<CustomServerAuthResponse>
 }
 
-class Polaris : Provider, PasswordAuth {
+class CustomServer : Provider, PasswordAuth {
     private var authCache: AuthCache
-    private var api: PolarisAPI
+    private var api: CustomServerAPI
     private var token: String? = null
 
     init {
         val retrofit =
             Retrofit.Builder()
-                .baseUrl("http://192.168.114.239:5050/api/")
+                .baseUrl("http://192.168.68.119:3000/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
-        api = retrofit.create(PolarisAPI::class.java)
+        api = retrofit.create(CustomServerAPI::class.java)
 
         authCache = AuthCache()
         runBlocking {
-            token = authCache.getFor(AuthCacheKeys.POLARIS_TOKEN)
+            token = authCache.getFor(AuthCacheKeys.CUSTOM_SERVER_TOKEN)
         }
     }
 
@@ -60,7 +62,7 @@ class Polaris : Provider, PasswordAuth {
         username: String,
         password: String,
     ) {
-        val res = api.auth(PolarisAuthRequest(username, password))
+        val res = api.auth(CustomServerAuthRequest(username, password))
 
         if (!res.isSuccessful) {
             throw Exception("${res.code()}: ${res.message()}")
@@ -73,7 +75,7 @@ class Polaris : Provider, PasswordAuth {
         val tkn = res.body()?.token
         if (tkn != null) {
             token = tkn
-            authCache.setFor(AuthCacheKeys.POLARIS_TOKEN, tkn)
+            authCache.setFor(AuthCacheKeys.CUSTOM_SERVER_TOKEN, tkn)
         }
     }
 
@@ -95,6 +97,16 @@ class Polaris : Provider, PasswordAuth {
     }
 
     override suspend fun addTrack(track: Track) {
-        throw Exception("not implemented")
+        if (token == null) {
+            throw Exception("log in first")
+        }
+
+        val res = api.addTrack("Bearer $token", track)
+
+        if (!res.isSuccessful) {
+            throw Exception("${res.code()}: ${res.message()}")
+        }
+
+        throw Exception("failed to add track")
     }
 }

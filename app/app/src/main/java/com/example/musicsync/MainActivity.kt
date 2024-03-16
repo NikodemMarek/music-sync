@@ -27,10 +27,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             }
         }
 
-        val provider = ProviderFactory.getPolarisInstance()
+        val provider = ProviderFactory.getCustomServerInstance()
         if (!provider.isAuthenticated()) {
             val intent = Intent(this, AuthActivity::class.java)
-            intent.putExtra("provider", ProviderType.POLARIS)
+            intent.putExtra("provider", ProviderType.CUSTOM_SERVER)
 
             startActivity(intent)
         }

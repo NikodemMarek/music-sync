@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.musicsync.components.FetchTrackListAdapter
 import com.example.musicsync.databinding.FragmentFetchBinding
+import com.example.musicsync.providers.Provider
 import com.example.musicsync.providers.ProviderFactory
 
 class FetchFragment : Fragment() {
@@ -25,7 +26,7 @@ class FetchFragment : Fragment() {
         binding.model = model
         binding.lifecycleOwner = this
 
-        model.provider = ProviderFactory.getDefaultInstance()
+        model.provider = ProviderFactory.getDefaultInstance() as Provider
         model.getTracksList()
 
         binding.rvTracks.layoutManager = LinearLayoutManager(requireContext())

@@ -13,6 +13,7 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 
 object AuthCacheKeys {
     val POLARIS_TOKEN = stringPreferencesKey("polaris_token")
+    val CUSTOM_SERVER_TOKEN = stringPreferencesKey("custom_server_token")
 }
 
 class AuthCache() {

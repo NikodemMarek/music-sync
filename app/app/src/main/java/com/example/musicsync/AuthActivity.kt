@@ -7,6 +7,7 @@ import androidx.fragment.app.commit
 import com.example.musicsync.databinding.ActivityAuthBinding
 import com.example.musicsync.fragments.AuthUsernamePasswordFragment
 import com.example.musicsync.providers.PasswordAuth
+import com.example.musicsync.providers.Provider
 import com.example.musicsync.providers.ProviderFactory
 import com.example.musicsync.providers.ProviderType
 
@@ -24,7 +25,7 @@ class AuthActivity : AppCompatActivity(R.layout.activity_auth) {
             return
         }
 
-        val provider = ProviderFactory.getInstance(providerType)
+        val provider = ProviderFactory.getInstance(providerType) as Provider
 
         if (provider.isAuthenticated()) {
             finish()
