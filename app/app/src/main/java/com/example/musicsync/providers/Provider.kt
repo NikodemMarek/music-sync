@@ -48,4 +48,6 @@ interface PasswordAuth {
         username: String,
         password: String,
     )
+
+    suspend fun logout()
 }

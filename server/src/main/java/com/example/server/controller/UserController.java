@@ -79,7 +79,7 @@ public class UserController {
     if (!userService.expiredTokensContains(token)) {
       userService.addExpiredToken(token);
     }
-    return new ResponseEntity<>(new UserResponseDTO("logged out"), HttpStatus.OK);
+    return new ResponseEntity<>(new TokenResponseDTO("logged out"), HttpStatus.OK);
   }
 
   @GetMapping("/confirm/{token}")

@@ -7,80 +7,82 @@
     <data>
         <variable
             name="model"
-            type="com.example.musicsync.fragments.AuthUsernamePasswordViewModel" />
+            type="com.example.musicsync.fragments.AddTrackViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        tools:context=".fragments.AuthUsernamePasswordFragment"
+        tools:context=".fragments.AddTrackFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilUsername"
+            android:id="@+id/tilTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"
-            app:layout_constraintVertical_chainStyle="packed"
+            android:hint="Title"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/tilPassword">
+            app:layout_constraintBottom_toTopOf="@id/tilArtist">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tietUsername"
+                android:id="@+id/tietTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:text="@={model.username}"
+                android:text="@={model.title}"
             />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilPassword"
+            android:id="@+id/tilArtist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
-            app:endIconMode="password_toggle"
-            app:layout_constraintVertical_chainStyle="packed"
+            android:hint="Artist"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilUsername"
-            app:layout_constraintBottom_toTopOf="@id/bLogin">
+            app:layout_constraintTop_toBottomOf="@id/tilTitle"
+            app:layout_constraintBottom_toTopOf="@id/tilAlbum">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tietPassword"
+                android:id="@+id/tietArtist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:text="@={model.password}"
+                android:text="@={model.artist}"
+            />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilAlbum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Album"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilArtist"
+            app:layout_constraintBottom_toTopOf="@id/bAdd">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tietAlbum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={model.album}"
             />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/bLogin"
+            android:id="@+id/bAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:text="Add"
             android:layout_marginTop="16dp"
-            android:onClick="@{() -> model.login()}"
-            app:layout_constraintVertical_chainStyle="packed"
+            android:onClick="@{() -> model.add()}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilPassword"
-            app:layout_constraintBottom_toTopOf="@id/tvError" />
-
-        <TextView
-            android:id="@+id/tvError"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{model.error}"
-            android:textColor="@color/error"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bLogin"
+            app:layout_constraintTop_toBottomOf="@id/tilAlbum"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

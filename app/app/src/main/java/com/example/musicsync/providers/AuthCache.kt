@@ -23,12 +23,21 @@ class AuthCache() {
         dataStore = App.getContext().dataStore
     }
 
-    suspend fun getFor(key: Preferences.Key<String>): String? = dataStore.data.first()[key]
+    suspend fun getFor(key: Preferences.Key<String>): String? {
+        val data = dataStore.data.first()[key]
+
+        return if (data.isNullOrEmpty()) {
+            null
+        } else {
+            data
+        }
+    }
 
     suspend fun setFor(
         key: Preferences.Key<String>,
-        data: String,
+        data: String?,
     ) {
+        val data = data ?: ""
         dataStore.edit { preferences ->
             preferences[key] = data
         }

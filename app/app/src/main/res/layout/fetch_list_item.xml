@@ -14,6 +14,18 @@
         android:text="test" />
 
     <TextView
+        android:id="@+id/fetchListItemArtist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test" />
+
+    <TextView
+        android:id="@+id/fetchListItemAlbum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test" />
+
+    <TextView
         android:id="@+id/fetchListItemUrl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

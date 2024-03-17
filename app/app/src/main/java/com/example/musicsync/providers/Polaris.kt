@@ -77,6 +77,15 @@ class Polaris : Provider, PasswordAuth {
         }
     }
 
+    override suspend fun logout() {
+        if (token == null) {
+            throw Exception("not logged in")
+        }
+
+        token = null
+        authCache.setFor(AuthCacheKeys.POLARIS_TOKEN, null)
+    }
+
     override fun isAuthenticated(): Boolean = token != null
 
     @Throws

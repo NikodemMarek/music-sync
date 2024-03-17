@@ -39,6 +39,8 @@ public class MusicController {
 
   @PostMapping("")
   public ResponseEntity<?> addTrack(@RequestBody TrackEntity track) {
+    System.out.println("track = " + track);
+
     service.addTrack(track);
     return new ResponseEntity<>("track added", HttpStatus.CREATED);
   }

@@ -1,5 +1,6 @@
 package com.example.musicsync.providers
 
+import android.util.Log
 import com.example.musicsync.data.Track
 import kotlinx.coroutines.runBlocking
 import retrofit2.Response
@@ -9,6 +10,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 data class CustomServerAuthRequest(
     val username: String,
@@ -34,6 +36,11 @@ interface CustomServerAPI {
     @POST("login")
     suspend fun auth(
         @Body data: CustomServerAuthRequest,
+    ): Response<CustomServerAuthResponse>
+
+    @GET("logout/{token}")
+    suspend fun logout(
+        @Path("token") token: String,
     ): Response<CustomServerAuthResponse>
 }
 
@@ -77,6 +84,25 @@ class CustomServer : Provider, PasswordAuth {
             token = tkn
             authCache.setFor(AuthCacheKeys.CUSTOM_SERVER_TOKEN, tkn)
         }
+    }
+
+    override suspend fun logout() {
+        if (token == null) {
+            throw Exception("not logged in")
+        }
+
+        Log.d("CustomServer1", "token: $token")
+        val res = api.logout(token!!)
+        Log.d("CustomServer2", "token: $token")
+
+        if (!res.isSuccessful) {
+            throw Exception("${res.code()}: ${res.message()}")
+        }
+
+        token = null
+        Log.d("CustomServer3", "token: $token")
+        authCache.setFor(AuthCacheKeys.CUSTOM_SERVER_TOKEN, null)
+        Log.d("CustomServer4", "token: $token")
     }
 
     override fun isAuthenticated(): Boolean = token != null
